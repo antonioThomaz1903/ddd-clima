@@ -17,7 +17,7 @@ class Database:
             raise Exception("Erro")
         else:
             try:
-                self.connection = sqlite3.connect("database.db")
+                self.connection = sqlite3.connect(r"C:\Users\anton\PycharmProjects\DDDClima\src\Persistence\database.db")
                 print(sqlite3.version)
                 Database.__instance = self
             except Error as e:
