@@ -4,8 +4,9 @@ from src.Entities.LocalizacaoGeografica import LocalizacaoGeografica
 from src.Entities.DadosClimaticos import DadosClimaticos
 import datetime
 from src.Persistence.DAO.DadosClimaticosDao import DadosClimaticosDao
+from src.app import settings
 
-API_KEY = "1cb7b2c2d9c6feb1e037ecfd4a42a887"
+API_KEY = settings.API_KEY
 
 def coletarDados(localizacao):
     req = requests.get(f"https://api.openweathermap.org/data/2.5/weather?lat={localizacao.getLatitude()}&lon={localizacao.getLongitude()}&appid={API_KEY}")
