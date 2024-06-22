@@ -6,3 +6,4 @@ src/.secrets.toml
 src/Entities/__pycache__/
 src/Persistence/__pycache__/
 src/Services/__pycache__/
+src/__pycache__
