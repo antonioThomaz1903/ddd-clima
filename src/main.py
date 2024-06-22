@@ -54,6 +54,7 @@ def coletarDadosApi(request: LocalizacaoGeograficaModel):
 def dadosColetadosApi():
     dadosDao = DadosClimaticosDao()
     dados = dadosDao.getDadosClimaticos()
+    print(dados)
     response = []
     for i in dados:
         response.append(DadosClimaticos(
