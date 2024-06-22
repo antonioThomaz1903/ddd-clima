@@ -1,0 +1,4 @@
+.venv/*
+*.zip
+DDDClima_AntonioThomaz/*
+.idea/*
