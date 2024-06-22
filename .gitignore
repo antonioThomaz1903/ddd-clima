@@ -2,7 +2,7 @@
 *.zip
 DDDClima_AntonioThomaz/*
 .idea/*
-.secrets.toml
+src/.secrets.toml
 src/Entities/__pycache__/
 src/Persistence/__pycache__/
 src/Services/__pycache__/
