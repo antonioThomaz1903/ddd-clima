@@ -2,3 +2,4 @@
 *.zip
 DDDClima_AntonioThomaz/*
 .idea/*
+.secrets.toml
