@@ -9,9 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 
 API_KEY = settings.API_KEY
-DATABASE_URI = settings.DADOS_CLIMATICOS_DATABASE_URI
 
-engine = create_engine(DATABASE_URI)
+engine = create_engine(settings.DADOS_CLIMATICOS_DATABASE_URI)
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
