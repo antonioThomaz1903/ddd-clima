@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coleta de Dados Climáticos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#register">Registro</a></li>
+            <li><a href="#login">Login</a></li>
+            <li><a href="#climate-data">Dados Climáticos</a></li>
+            <li><a href="#user-management">Gerenciamento de Usuários</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <h1>Bem-vindo à Aplicação de Coleta de Dados Climáticos</h1>
+        <p>Monitore e gerencie dados climáticos de maneira eficiente.</p>
+        <img src="climate.jpg" alt="Clima">
+    </section>
+
+    <section id="register">
+        <h2>Registro</h2>
+        <form id="registerForm">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Registrar</button>
+        </form>
+    </section>
+
+    <section id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <label for="usernameLogin">Nome de Usuário:</label>
+            <input type="text" id="usernameLogin" name="username" required>
+            <label for="passwordLogin">Senha:</label>
+            <input type="password" id="passwordLogin" name="password" required>
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <section id="climate-data">
+        <h2>Dados Climáticos</h2>
+        <div id="data-display">
+            <!-- Dados climáticos serão exibidos aqui -->
+        </div>
+    </section>
+
+    <section id="user-management">
+        <h2>Gerenciamento de Usuários</h2>
+        <div id="user-list">
+            <!-- Lista de usuários será exibida aqui -->
+        </div>
+    </section>
+
+    <script src=" url_for('static', filename='js/script.js')"></script>
+</body>
+</html>

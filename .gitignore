@@ -10,3 +10,10 @@ src/__pycache__
 /instance/
 instance/
 src/instance/"
+dist/
+*.spec
+src/Services/Api/__pycache__/
+src/Services/Newsletter/__pycache__/
+src/Services/ColetarDados/__pycache__/
+build/
+src/ddd_clima.egg-info
