@@ -4,6 +4,7 @@ from flask import request, jsonify, Blueprint
 import datetime
 from flask_restx import Api, Resource, fields, Namespace
 from src.Services.ColetarDados import Session, coletarDados, getDadosClimaticos
+from src.Services.Newsletter import enviar_newsletter
 
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp, version='1.0', title='Api Dados Climaticos',
@@ -12,8 +13,10 @@ api = Api(api_bp, version='1.0', title='Api Dados Climaticos',
 
 ns_coletar_dados = Namespace('coletar_dados', description='Operações para coletar dados climáticos')
 ns_users = Namespace('users', description='Operações para manipulação de usuários')
+ns_news = Namespace('newsletter', description='Operações para enviar newsletter')
 api.add_namespace(ns_coletar_dados)
 api.add_namespace(ns_users)
+api.add_namespace(ns_news)
 
 user_model = ns_users.model('Usuario', {
     'username': fields.String(required=True, description='The user name'),
@@ -88,3 +91,10 @@ class GetDados(Resource):
         if lim and pag:
             dados = dados[(lim * (pag-1)): (lim * pag) + pag-1]
         return jsonify([dado.to_dict() for dado in dados])
+
+@ns_news.route('/enviar_newsletter')
+class EnviarNewsletter(Resource):
+    def post(self):
+        response = enviar_newsletter()
+        print(response)
+        return response
