@@ -9,6 +9,7 @@ api_bp = Blueprint('api', __name__)
 api = Api(api_bp, version='1.0', title='Api Dados Climaticos',
           description='Api para coleta de dados climaticos')
 
+
 ns_coletar_dados = Namespace('coletar_dados', description='Operações para coletar dados climáticos')
 ns_users = Namespace('users', description='Operações para manipulação de usuários')
 api.add_namespace(ns_coletar_dados)
@@ -40,33 +41,10 @@ class Register(Resource):
         session_app.commit()
         return "Usuario created successfully", 201
 
-@ns_users.route('/login')
-class Login(Resource):
-    @ns_users.expect(login_model)
-    def post(self):
-        data = request.get_json()
-        user = Usuario.query.filter_by(username=data['username'], password=data['password']).first()
-        if user:
-            payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
-                'iat': datetime.datetime.utcnow(),
-                "sub": user.id
-            }
-            token = generate_jwt(payload)
-            return jsonify({"token": token})
-        return "Invalid username or password", 401
-
 @ns_users.route('/get_user/<int:user_id>')
 class GetUser(Resource):
     def get(self, user_id):
-        authorization = request.headers.get('Authorization')
-        token = authorization.split(' ')[1]
-        if not token:
-            return "Token is missing", 422
-        payload = verify_jwt(token)
-        if not payload:
-            return "Token is invalid", 422
-        user = Usuario.query.get(user_id)
+        user = session_app.query(Usuario).get(user_id)
         if not user:
             return jsonify({'message': 'Usuario not found'}), 404
         return jsonify({'username': user.username, 'email': user.email})
@@ -74,14 +52,7 @@ class GetUser(Resource):
 @ns_users.route("/user/<int:user_id>")
 class DeleteUser(Resource):
     def delete(self, user_id):
-        authorization = request.headers.get('Authorization')
-        token = authorization.split(' ')[1]
-        if not token:
-            return "Token is missing", 422
-        payload = verify_jwt(token)
-        if not payload:
-            return "Token is invalid", 422
-        user = Usuario.query.get(user_id)
+        user = session_app.query(Usuario).get(user_id)
         if not user:
             return jsonify({"message": "Usuário não encontrado"}), 404
         session_app.delete(user)
@@ -91,18 +62,10 @@ class DeleteUser(Resource):
 @ns_users.route("/users")
 class ListUsers(Resource):
     def get(self):
-        authorization = request.headers.get('Authorization')
-        token = authorization.split(' ')[1]
-        if not token:
-            return "Token is missing", 422
-        payload = verify_jwt(token)
-        if not payload:
-            return "Token is invalid", 422
-        users = Usuario.query.all()
+        users = session_app.query(Usuario).all()
         if not users:
             return jsonify({"message": "Não há usuários cadastrados"}), 404
-        result = [user.username for user in users]
-        return jsonify({"users": result})
+        return jsonify([user.to_dict() for user in users])
 
 @ns_coletar_dados.route("/coletar_dado")
 class ColetarDado(Resource):
@@ -112,19 +75,16 @@ class ColetarDado(Resource):
         latitude = data['lat']
         longitude = data['lon']
         dado = coletarDados(latitude, longitude)
-        return jsonify({'id':dado.id,
-                        'temperatura':dado.temperatura,
-                        'umidade':dado.umidade,
-                        'velocidade_do_vento':dado.velocidade_do_vento,
-                        'pressao_atmosferica':dado.pressao_atmosferica,
-                        'tempo':dado.tempo,
-                        'lat':dado.latitude,
-                        'lon':dado.longitude})
+        return jsonify(dado.to_dict())
 
-@ns_coletar_dados.route('/get_dados')
+@ns_coletar_dados.route('/get_dados', defaults={'lim': None, 'pag': 1})
+@ns_coletar_dados.route('/get_dados/<int:lim>', defaults={'pag': 1})
+@ns_coletar_dados.route('/get_dados/<int:lim>/<int:pag>')
 class GetDados(Resource):
-    def get(self):
+    def get(self, lim, pag):
         dados = getDadosClimaticos()
         if not dados:
             return jsonify({'message':'Não há dados cadastrados'}), 404
+        if lim and pag:
+            dados = dados[(lim * (pag-1)): (lim * pag) + pag-1]
         return jsonify([dado.to_dict() for dado in dados])
