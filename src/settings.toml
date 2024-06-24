@@ -1,0 +1,4 @@
+[default]
+DATABASE_URI = "sqlite:///user_data.db"
+DADOS_CLIMATICOS_DATABASE_URI = 'sqlite:///climate_data.db'
+MODIFICATIONS = false

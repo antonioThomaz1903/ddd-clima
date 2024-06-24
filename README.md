@@ -52,6 +52,5 @@ O objetivo principal deste sistema é fornecer um meio eficiente e escalável pa
 
     Requisito não funcional 1: O sistema deve ser capaz de lidar com altas cargas de requisições simultâneas sem degradação significativa de desempenho.
     Requisito não funcional 2: A arquitetura deve permitir a adição de novos serviços e a expansão dos serviços existentes sem grandes modificações.
-    Requisito não funcional 3: Todos os serviços devem seguir práticas robustas de segurança, incluindo criptografia de dados sensíveis, autenticação forte e proteção contra ataques comuns (ex: DDoS, SQL Injection).
     Requisito não funcional 4: O sistema deve ser altamente disponível, com redundância e mecanismos de failover para minimizar o tempo de inatividade.
     Requisito não funcional 5: O código deve ser bem documentado e modular, facilitando a manutenção e a adição de novas funcionalidades.
