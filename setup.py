@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='my_project',
-    version='0.1',
+    name='ddd_clima',
+    version='0.1.1',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     install_requires=[
@@ -15,7 +15,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'my_project=app:main',
+            'ddd_clima=app:main',
         ],
     },
+    include_package_data=True
 )
