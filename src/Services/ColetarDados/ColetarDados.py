@@ -32,5 +32,4 @@ def getDadosClimaticos():
     dadosClimaticos = []
     for dado in session.query(DadosClimaticos).all():
         dadosClimaticos.append(dado)
-        print(dado)
     return dadosClimaticos
