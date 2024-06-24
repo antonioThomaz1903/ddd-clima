@@ -3,4 +3,9 @@ include requirements.txt
 recursive-include src/Entities *
 recursive-include src/Services *
 recursive-include src/Utils *
+recursive-include src/static *
+recursive-include src/templates *
+include src/settings.toml
+include src/.secrets.toml
+recursive-include src *
 include *.db
