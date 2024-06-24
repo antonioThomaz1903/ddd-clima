@@ -11,3 +11,10 @@ class Usuario(BaseUsuario):
 
     def __repr__(self):
             return '<Usuario %r>' % self.username
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email
+        }
